@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Task Manager</title>
+  <style>
+    .completed {
+      text-decoration: line-through;
+    }
+  </style>
+</head>
+<body>
+  <h1>Task Manager</h1>
+  
+  <div id="task-list">
+    <input type="text" id="task-input" placeholder="Enter a new task">
+    <button id="add-task-btn">Add Task</button>
+    <ul id="tasks">
+    </ul>
+  </div>
+
+  <script>
+    // Create a task manager object
+    var taskManager = {
+      tasks: [],
+      
+      addTask: function(task) {
+        this.tasks.push({
+          name: task,
+          completed: false
+        });
+      },
+      
+      deleteTask: function(index) {
+        this.tasks.splice(index, 1);
+      },
+      
+      completeTask: function(index) {
+        this.tasks[index].completed = true;
+      },
+      
+      renderTasks: function() {
+        var tasksContainer = document.getElementById('tasks');
+        tasksContainer.innerHTML = '';
+        
+        for (var i = 0; i < this.tasks.length; i++) {
+          var task = this.tasks[i];
+          
+          var li = document.createElement('li');
+          if (task.completed) {
+            li.classList.add('completed');
+          }
+          
+          var checkbox = document.createElement('input');
+          checkbox.type = 'checkbox';
+          checkbox.checked = task.completed;
+          checkbox.addEventListener('change', this.toggleTaskCompletion.bind(this, i));
+          
+          var span = document.createElement('span');
+          span.innerText = task.name;
+          
+          var deleteBtn = document.createElement('button');
+          deleteBtn.innerText = 'Delete';
+          deleteBtn.addEventListener('click', this.deleteTask.bind(this, i));
+          
+          li.appendChild(checkbox);
+          li.appendChild(span);
+          li.appendChild(deleteBtn);
+          
+          tasksContainer.appendChild(li);
+        }
+      },
+      
+      toggleTaskCompletion: function(index) {
+        this.tasks[index].completed = !this.tasks[index].completed;
+        this.renderTasks();
+      }
+    };
+    
+    // Event listener for the add task button
+    document.getElementById('add-task-btn').addEventListener('click', function() {
+      var taskInput = document.getElementById('task-input');
+      var task = taskInput.value;
+      
+      if (task.trim() !== '') {
+        taskManager.addTask(task);
+        taskInput.value = '';
+        taskManager.renderTasks();
+      }
+    });
+  </script>
+</body>
+</html>

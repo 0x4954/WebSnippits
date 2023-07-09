@@ -1,4 +1,4 @@
-fetch("x-counter.html")
+fetch("template.html")
     .then(stream => stream.text())
     .then(text => define(text));
 
