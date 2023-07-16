@@ -1,0 +1,10 @@
+{
+    "_Comment1": "If true the Module menu and container uses shadow dom.  Use false to disable the shadow dom.",
+    "ShadowDOM": false,
+
+    "_Comment2": "Write the name of module folder that you want to use. The order it is written is the order it appear in the menu.",
+    "Modules": [
+        "ExampleModule1",
+        "ExampleModule2"
+    ]
+}
