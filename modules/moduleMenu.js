@@ -2,9 +2,11 @@ fetch("./moduleMenuTemplate.html")
     .then(stream => stream.text())
     .then(text => define(text));
 
-fetch("./moduleConfig.json")
-    .then((response) => response.json())
-    .then((json) => this.moduleConfig = json);
+// fetch("./moduleConfig.json")
+//     .then((response) => response.json())
+//     .then((json) => this.moduleConfig = json);
+
+
 
 function define(html) {
     class ModuleMenu extends HTMLElement {
@@ -21,7 +23,9 @@ function define(html) {
             super();
             this._value = 0;
 
-            var shadow = this.attachShadow({mode: 'open'});
+            if(moduleConfig.shadowDOM == true) {
+                var shadow = this.attachShadow({mode: 'open'});
+            }
 
             shadow.innerHTML = html;
 

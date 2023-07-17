@@ -1,4 +1,4 @@
-fetch("moduleContainerTemplate.html")
+fetch("./moduleContainerTemplate.html")
     .then(stream => stream.text())
     .then(text => define(text));
 
@@ -20,13 +20,6 @@ function define(html) {
             var shadow = this.attachShadow({mode: 'open'});
 
             shadow.innerHTML = html;
-
-            this.valueElement = shadow.querySelector('p');
-            var incrementButton = shadow.querySelectorAll('button')[1];
-            var decrementButton = shadow.querySelectorAll('button')[0];
-
-            incrementButton.onclick = () => this.value++;
-            decrementButton.onclick = () => this.value--;
         }
     }
 
